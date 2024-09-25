@@ -1,12 +1,24 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Post, Body } from '@nestjs/common';
 import { AppService } from './app.service';
 
-@Controller()
+@Controller('chat')
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
+  @Post()
+  async chat(
+    @Body('question') question: string,
+    @Body('sessionId') sessionId: string,
+  ) {
+    // Call a service method or handle the logic here
+    const response = await this.appService.processChat(question, sessionId);
+
+    // Return the response
+    return {
+      success: true,
+      sessionId,
+      question,
+      response,
+    };
   }
 }

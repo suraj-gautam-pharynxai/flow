@@ -1,0 +1,62 @@
+{
+  "flows": {
+    "name": "healthcareAppointment",
+    "healthcareAppointment": {
+      "steps": [
+        {
+          "id": "askSpecialty",
+          "prompt": "What specialty are you looking for? (e.g., cardiology, dermatology)",
+          "next": "askName"
+        },
+        {
+          "id": "askName",
+          "variable": "name",
+          "input": { "type": "string" },
+          "prompt": "Tell me your name",
+          "next": "askTime"
+        },
+        {
+          "id": "askEmail",
+          "variable": "email",
+          "input": { "type": "email" },
+          "prompt": "What is email",
+          "next": "askDoctor"
+        },
+        {
+          "id": "askDoctor",
+          "variable": "specialty",
+          "input": {
+            "type": "list",
+            "data": [
+              { "id": 1, "option": "dermatology" },
+              { "id": 2, "option": "cardiology" },
+              { "id": 3, "option": "orthology" }
+            ]
+          },
+          "prompt": "select specialist",
+          "next": "confirmBooking"
+        },
+        {
+          "id": "confirmBooking",
+          "variable": "confirm",
+          "input": {
+            "type": "enum",
+            "data": [
+              { "id": 1, "option": "yes" },
+              { "id": 2, "option": "no" }
+            ]
+          },
+          "prompt": "confirm booking?",
+          "next": "endFlow"
+        },
+
+        {
+          "id": "endFlow",
+
+          "prompt": "Your appointment has been successfully scheduled! Thank you!",
+          "next": null
+        }
+      ]
+    }
+  }
+}
