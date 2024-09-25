@@ -1,11 +1,11 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { FlowService } from './flow.service';
 
-@Controller()
+@Controller('flow')
 export class FlowController {
   constructor(private readonly flowService: FlowService) {}
 
-  @Post()
+  @Post('chat')
   async chat(
     @Body('question') question: string,
     @Body('sessionId') sessionId: string,

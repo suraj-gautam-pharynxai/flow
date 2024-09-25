@@ -63,7 +63,9 @@ export abstract class AbstractRepository<TDocument extends AbstractDocument> {
   }
 
   async findOneAndUpdate(
-filterQuery: FilterQuery<TDocument>, update: UpdateQuery<TDocument>, p0: { strict: boolean; upsert: boolean; },
+    filterQuery: FilterQuery<TDocument>,
+    update: UpdateQuery<TDocument>,
+    p0: { strict: boolean; upsert: boolean },
   ) {
     const document = await this.model.findOneAndUpdate(filterQuery, update, {
       lean: true,
@@ -83,17 +85,17 @@ filterQuery: FilterQuery<TDocument>, update: UpdateQuery<TDocument>, p0: { stric
     return this.model.find(filterQuery, {}, { lean: true });
   }
 
-  async startTransaction() {
-    const session = await this.connection.startSession();
-    session.startTransaction();
-    return session;
-  }
+  // async startTransaction() {
+  //   const session = await this.connection.startSession();
+  //   session.startTransaction();
+  //   return session;
+  // }
 
   async aggregate(pipeline: PipelineStage[], options: AggregateOptions) {
     return this.model.aggregate(pipeline);
   }
 
-  async deleteOne(filterQuery: FilterQuery<TDocument>) {
-    return this.model.deleteOne(filterQuery);
-  }
+  // async deleteOne(filterQuery: FilterQuery<TDocument>) {
+  //   return this.model.deleteOne(filterQuery);
+  // }
 }

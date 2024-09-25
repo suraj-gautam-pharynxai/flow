@@ -9,7 +9,13 @@ export class FlowService {
 
   constructor() {
     // Load flow data from JSON file
-    const flowPath = path.join(__dirname, '../src/flowData.json');
+    const flowPath = path.join(
+      __dirname,
+      '../../../apps/flow/src/flowData.json',
+    );
+    // console.log({ __dirname });
+    // console.log({ flowPath });
+
     const flowData = fs.readFileSync(flowPath, 'utf8');
     this.flows = JSON.parse(flowData);
   }
@@ -26,9 +32,7 @@ export class FlowService {
 
   async processChat(question: string, sessionId: string) {
     const flows = this.flows.flows.healthcareAppointment;
-    console.log();
 
-    console.log(this.session);
     if (flows.steps[this.session.stepId].variable) {
       const val = this.dataValidation(
         question,
